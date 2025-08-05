@@ -12,7 +12,13 @@ from pydantic import BaseModel
 import modal
 from PIL import Image
 import numpy as np
-import cv2
+# Try to import cv2, fallback to PIL if not available
+try:
+    import cv2
+    CV2_AVAILABLE = True
+except ImportError:
+    CV2_AVAILABLE = False
+    print("Warning: OpenCV not available, using PIL fallback")
 import io
 from dotenv import load_dotenv
 

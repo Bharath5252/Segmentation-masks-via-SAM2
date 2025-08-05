@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: sam2-backend
+    env: python
+    plan: free
+    buildCommand: |
+      apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0
+      pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    rootDir: backend
+    envVars:
+      - key: MODAL_TOKEN_ID
+        value: CLIENT_TOKEN
+      - key: MODAL_TOKEN_SECRET
+        value: dummy-token
+      - key: CORS_ORIGINS
+        value: https://your-frontend-url.vercel.app 
